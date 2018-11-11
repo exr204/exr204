@@ -12,12 +12,13 @@ import java.io.FileReader;
 import javax.swing.*;
 import javax.swing.JComboBox;
 import exr204.Exr204;
+import static exr204.Exr204.estudiante;
 
 
 public class ventana extends JFrame{
     
     public ventana(){
-        Administrador admi = new Administrador();
+      VentanaPrincipal v = new VentanaPrincipal();
        
         
     }
@@ -117,7 +118,33 @@ public class ventana extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            
+                if(cj1.getText().equals("201504443") && cj2.getText().equals("201504443"))
+                {
+                    Administrador admin = new Administrador();
+                }
+                else
+                {
+                    if(estudiante.LoginEstudiante(cj1.getText(), cj2.getText()))
+                    {
+                        Asignacion asig = new Asignacion();
+                        asig.show();
+                    }
+                    else
+                    {
+                        if(Exr204.catedratico.LoginCatedratico(cj1.getText(), cj2.getText()))
+                        {
+                            IngresoNotas notas = new IngresoNotas();
+                            notas.show();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "La contraseña o El Usuario son erroneos");
+                        }
+                    }
+                }
+                
+                cj1.setText(" ");
+                cj2.setText(" ");
             }
         });    
         }
@@ -146,10 +173,10 @@ public class ventana extends JFrame{
         
         public Administrador(){
             setTitle("Administrador");
-            setSize(400, 300);
+            setSize(500, 300);
             setVisible(true);
             setLocationRelativeTo(null);//Centrar ventana
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//cerrar ventana
+            setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//cerrar ventana
             
             
             panel(); 
@@ -158,6 +185,7 @@ public class ventana extends JFrame{
             Boton3();
             Boton4();
             Boton5();
+            Boton6();
         }
         
         JPanel panel = new JPanel();
@@ -170,7 +198,7 @@ public class ventana extends JFrame{
      
      private void Boton1(){
             JButton b1 = new JButton("Cargar Cursos");
-            b1.setBounds(50, 20, 130, 30);
+            b1.setBounds(20, 20, 130, 30);
             panel.add(b1);
             
             
@@ -189,7 +217,7 @@ public class ventana extends JFrame{
      
      private void Boton2(){
             JButton b2 = new JButton("Cargar Estudiantes");
-            b2.setBounds(200, 20, 150, 30);
+            b2.setBounds(158, 20, 150, 30);
             panel.add(b2);
             
             
@@ -206,13 +234,13 @@ public class ventana extends JFrame{
         }
      
       private void Boton3(){
-            JButton b1 = new JButton("Administrar Estudiantes");
-            b1.setBounds(100, 80, 180, 30);
-            panel.add(b1);
+            JButton b3 = new JButton("Administrar Estudiantes");
+            b3.setBounds(150, 80, 180, 30);
+            panel.add(b3);
             
             
             /* Asignar una Accion al JButton */
-        b1.addActionListener(new ActionListener() {
+        b3.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -224,13 +252,13 @@ public class ventana extends JFrame{
         });    
         }
        private void Boton4(){
-            JButton b1 = new JButton("Administrar Cursos");
-            b1.setBounds(115, 130, 150, 30);
-            panel.add(b1);
+            JButton b4 = new JButton("Administrar Cursos");
+            b4.setBounds(165, 130, 150, 30);
+            panel.add(b4);
             
             
             /* Asignar una Accion al JButton */
-        b1.addActionListener(new ActionListener() {
+        b4.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -242,13 +270,13 @@ public class ventana extends JFrame{
         });    
         }
         private void Boton5(){
-            JButton b1 = new JButton("Reportes");
-            b1.setBounds(125, 180, 130, 30);
-            panel.add(b1);
+            JButton b5 = new JButton("Reportes");
+            b5.setBounds(175, 180, 130, 30);
+            panel.add(b5);
             
             
             /* Asignar una Accion al JButton */
-        b1.addActionListener(new ActionListener() {
+        b5.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -256,6 +284,24 @@ public class ventana extends JFrame{
                 admiReportes admirep = new admiReportes();
                 admirep.show();
                 
+            }
+        });    
+        }
+        
+        private void Boton6(){
+            JButton b6 = new JButton("Cargar Catedráticos");
+            b6.setBounds(315, 20, 150, 30);
+            panel.add(b6);
+            
+            
+            /* Asignar una Accion al JButton */
+        b6.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+               CargadeDatosCatedraticos();
+               
             }
         });    
         }
@@ -280,21 +326,13 @@ public class ventana extends JFrame{
             {
                 String[] datos = linea.split(separador);
                 try { 
-                for(int i = 0; i<datos.length; i++)
-                {
-                   
-                }
-                //objeto.Agregar(id, nombre, ingeniero, creditos, lab, seccion, pre, post);
-                //objeto.Agregar(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7], datos[8]);
-                
                 Exr204.curso.Agregar(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6]);
-                Exr204.curso.Imprimir();
-                  
                
                 } catch (Exception e) {}
                 
             }
             archivo.close();
+            Exr204.curso.Imprimir();
         } catch (Exception e) {
         }
     }     
@@ -316,21 +354,45 @@ public class ventana extends JFrame{
             {
                 String[] datos = linea.split(separador);
                 try { 
-                for(int i = 0; i<datos.length; i++)
-                {
-                   
-                }
-                
                 Exr204.estudiante.Agregar(datos[0], datos[1],datos[2], datos[3], datos[4], datos[5]);
-                Exr204.estudiante.Imprimir();
+                } catch (Exception e) {}
+                
+            }
+            archivo.close();
+            Exr204.estudiante.Imprimir();
+        } catch (Exception e) {
+        }
+    }   
+     
+      public static void CargadeDatosCatedraticos()
+    {
+        BufferedReader archivo = null;
+        String linea = "";
+        String separador = ";";
+        JFileChooser buscador = new JFileChooser();
+        buscador.showOpenDialog(buscador);
+        
+        try {
+            
+            String patch = buscador.getSelectedFile().getAbsolutePath();
+            
+            archivo = new BufferedReader(new FileReader(patch));
+            while((linea = archivo.readLine()) != null)
+            {
+                String[] datos = linea.split(separador);
+                try { 
+                
+                Exr204.catedratico.Agregar(datos[0], datos[1]);
+               
                 
                 } catch (Exception e) {}
                 
             }
             archivo.close();
+            Exr204.catedratico.Imprimir();
         } catch (Exception e) {
         }
-    }   
+    }  
    
 }
 

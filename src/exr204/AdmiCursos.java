@@ -5,6 +5,8 @@
  */
 package exr204;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author USER
@@ -16,6 +18,7 @@ public class AdmiCursos extends javax.swing.JFrame {
      */
     public AdmiCursos() {
         
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
     }

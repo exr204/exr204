@@ -3,7 +3,7 @@ package exr204;
 
 
 public class NodoCatedratico {
-    String nombre;
+    String id, nombre, contrasenia;
     NodoCatedratico siguiente;
     
 }

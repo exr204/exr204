@@ -5,6 +5,8 @@
  */
 package exr204;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author USER
@@ -15,6 +17,7 @@ public class AdmiEstudiantes extends javax.swing.JFrame {
      * Creates new form AdmiEstudiantes
      */
     public AdmiEstudiantes() {
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
     }

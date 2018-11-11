@@ -5,6 +5,8 @@
  */
 package exr204;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author USER
@@ -15,6 +17,7 @@ public class Asignacion extends javax.swing.JFrame {
      * Creates new form Asignacion
      */
     public Asignacion() {
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         initComponents();
     }
 

@@ -17,6 +17,7 @@ public class IngresoNotas extends javax.swing.JFrame {
      * Creates new form IngresoNotas
      */
     public IngresoNotas() {
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         initComponents();
     }

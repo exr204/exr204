@@ -23,12 +23,34 @@ public class ListaCurso {
         
         if(inicio == null){
            inicio = ultimo = nuevo;
-           inicio.siguiente = ultimo;
+           ultimo.siguiente = inicio;
         }else{
             ultimo.siguiente = nuevo;
             nuevo.siguiente = inicio;
             ultimo = nuevo;
         }
+    }
+    
+    public void AgregarEstudiante(String codigoCurso, String carnet, String nombre, int nota)
+    {
+        NodoCurso temporal = inicio;
+        do {
+            if(temporal.Id.equals(codigoCurso))
+            {
+                break;
+            }
+            temporal = temporal.siguiente;
+        } while (temporal != inicio);
+        //codigo
+        if(temporal.estudianteAsignado.BuscarEstudiante(carnet))
+        {
+            System.out.println("Error!! el estudiante ya esta asignado a este curso");
+        }
+        else
+        {
+            temporal.estudianteAsignado.Agregar(carnet, " ", nombre, " ", " ", " ");
+        }
+        
     }
     
     public void Imprimir(){

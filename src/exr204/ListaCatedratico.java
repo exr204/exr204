@@ -13,7 +13,7 @@ public class ListaCatedratico {
     public void Agregar(String id, String nombre){
         NodoCatedratico nuevo = new NodoCatedratico();
         
-        int random=(int) (Math.random() * (150-50+1)+5) ;
+        int random= 0; //(int) (Math.random() * (150-50+1)+5) ;
         
         nuevo.id = id;
         nuevo.nombre = nombre;

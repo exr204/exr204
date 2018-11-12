@@ -124,10 +124,11 @@ public class ventana extends JFrame{
                 }
                 else
                 {
-                    if(estudiante.LoginEstudiante(cj1.getText(), cj2.getText()))
+                    NodoEstudiante estudent = estudiante.LoginEstudiante(cj1.getText(), cj2.getText());
+                    if( estudent != null)
                     {
-                        Asignacion asig = new Asignacion();
-                        asig.show();
+                        Asignacion asig = new Asignacion(estudent);
+                        asig.setVisible(true);
                     }
                     else
                     {
@@ -332,7 +333,7 @@ public class ventana extends JFrame{
                 
             }
             archivo.close();
-            Exr204.curso.Imprimir();
+            //Exr204.curso.Imprimir();
         } catch (Exception e) {
         }
     }     

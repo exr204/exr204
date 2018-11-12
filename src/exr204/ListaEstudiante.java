@@ -23,7 +23,8 @@ public class ListaEstudiante {
         nuevo.correo = correo;
         nuevo.direccion = direccion;
         nuevo.creditos = creditos;
-        nuevo.contrasenia = carnet + random;
+        nuevo.contrasenia = carnet + Integer.toString(random);
+        System.out.println("|"+nuevo.contrasenia+"|");
         
         if(inicio == null){
             inicio = ultimo = nuevo;
@@ -77,21 +78,23 @@ public class ListaEstudiante {
         return false;
     }
     
-    public boolean LoginEstudiante(String carnet, String contrasenia)
+    public NodoEstudiante LoginEstudiante(String carnet, String contrasenia)
     {
         NodoEstudiante temporal; 
         temporal = inicio;
         if(inicio != null)
         {
             do{
-            if(temporal.carnet.equals(carnet) && temporal.contrasenia.equals(contrasenia))
+            
+            if(Integer.parseInt(temporal.carnet.trim()) == Integer.parseInt(carnet.trim()) && Integer.parseInt(temporal.contrasenia.trim()) == Integer.parseInt(contrasenia.trim()))
             {
-                return true;
+                return temporal;
             }
             temporal = temporal.siguiente;
             }while(temporal != inicio);
         }
-        return false;
+        return null;
     }
+    
     
 }

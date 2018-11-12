@@ -3,7 +3,7 @@ package exr204;
 
 //Lista Circular simple
 public class ListaCurso {
-    NodoCurso inicio, ultimo;
+    public NodoCurso inicio, ultimo;
     
     public ListaCurso(){
         this.inicio = null;
@@ -60,5 +60,19 @@ public class ListaCurso {
             System.out.println(temporal.Id+" "+temporal.curso+" "+temporal.catedratico+" "+temporal.creditos+" "+temporal.laboratorio+" "+temporal.pre_requisito+" "+temporal.post_requisito);
             temporal = temporal.siguiente;
         }while(temporal != inicio);
+    }
+    
+    public NodoCurso EncontrarCurso(String nombre)
+    {
+        NodoCurso temporal;
+        temporal = inicio;
+        do{
+            if(temporal.curso.equals(nombre))
+            {
+                return temporal;
+            }
+            temporal = temporal.siguiente;
+        }while(temporal != inicio);
+        return null;
     }
 }

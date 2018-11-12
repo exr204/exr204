@@ -16,10 +16,34 @@ public class Asignacion extends javax.swing.JFrame {
     /**
      * Creates new form Asignacion
      */
+    NodoEstudiante estudent;
+    public Asignacion(NodoEstudiante estudent) {
+        this.estudent = estudent;
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        initComponents();
+        this.setVisible(true);
+        
+        Semestre.removeAllItems();
+        NodoSemestre temporal = Exr204.semestre.inicio;
+        while(temporal != null){
+                Semestre.addItem(temporal.nombre);
+                temporal = temporal.siguiente;
+        }
+        
+        Curso.removeAllItems();
+        NodoCurso temp = Exr204.curso.inicio;
+        do{
+                Curso.addItem(temp.curso);
+                temp = temp.siguiente;
+        }while(temp != Exr204.curso.inicio);
+        
+    }
+    
     public Asignacion() {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +75,11 @@ public class Asignacion extends javax.swing.JFrame {
         Curso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("Asignar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,6 +167,19 @@ public class Asignacion extends javax.swing.JFrame {
     private void SemestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SemestreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SemestreActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Este es el boton para asignar un curso a un semestre correspondiente, de un estudiante.
+        String nombreSemestre = Semestre.getSelectedItem().toString();
+        String nombreCurso = Curso.getSelectedItem().toString();
+        NodoCurso curso1 = Exr204.curso.EncontrarCurso(nombreCurso);
+        if(curso1 != null)
+        {
+            estudent.semestre.AgregarCursoenSemestre(nombreSemestre, curso1.Id, curso1.curso, curso1.catedratico, curso1.creditos, curso1.laboratorio, curso1.pre_requisito, curso1.post_requisito);
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

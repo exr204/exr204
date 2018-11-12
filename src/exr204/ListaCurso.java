@@ -4,7 +4,7 @@ package exr204;
 //Lista Circular simple
 public class ListaCurso {
     public NodoCurso inicio, ultimo;
-    
+    int contadorCurso = 0;
     public ListaCurso(){
         this.inicio = null;
         this.ultimo = null;
@@ -25,10 +25,56 @@ public class ListaCurso {
            inicio = ultimo = nuevo;
            ultimo.siguiente = inicio;
         }else{
-            ultimo.siguiente = nuevo;
-            nuevo.siguiente = inicio;
-            ultimo = nuevo;
+            if(contadorCurso <= 3)
+            {
+                ultimo.siguiente = nuevo;
+                nuevo.siguiente = inicio;
+                ultimo = nuevo;
+            }
+            else
+            {
+                System.out.println("ERROR: No pueden haber mas de 3 cursos por semestre");
+            }
+            
         }
+        contadorCurso++;
+    }
+    
+    public void Eliminar(String Id){
+        NodoCurso temporal;
+        temporal = inicio;
+        if(inicio == null)
+        {
+            //la lista esta vacia
+        }
+        else
+        {
+            NodoCurso anterior = inicio;
+            do{
+                
+                if(temporal.Id.equals(Id)){
+                   
+                   if(temporal == inicio)
+                   {
+                       inicio = temporal.siguiente;
+                       ultimo = inicio;
+                   }
+                   else if(temporal == ultimo)
+                   {
+                       ultimo = anterior;
+                       ultimo.siguiente = inicio;
+                   }
+                   else
+                   {
+                       anterior.siguiente = temporal.siguiente;
+                   }
+                }
+                
+                anterior = temporal;
+                temporal = temporal.siguiente;
+            }while(temporal != inicio);
+        }
+        contadorCurso--;
     }
     
     public void AgregarEstudiante(String codigoCurso, String carnet, String nombre, int nota)

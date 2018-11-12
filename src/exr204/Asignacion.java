@@ -23,6 +23,8 @@ public class Asignacion extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         
+        
+        
         Semestre.removeAllItems();
         NodoSemestre temporal = Exr204.semestre.inicio;
         while(temporal != null){
@@ -176,7 +178,19 @@ public class Asignacion extends javax.swing.JFrame {
         if(curso1 != null)
         {
             estudent.semestre.AgregarCursoenSemestre(nombreSemestre, curso1.Id, curso1.curso, curso1.catedratico, curso1.creditos, curso1.laboratorio, curso1.pre_requisito, curso1.post_requisito);
+        
+            
+            //nombre del catedratico
+            //buscar al catedratico
+            NodoCatedratico profe = Exr204.catedratico.DevolverCatedratico(curso1.catedratico);
+            if(profe != null)
+            {
+                profe.semestre.AgregarEstudianteenCursoenSemestre(nombreSemestre, curso1.Id, curso1.curso, curso1.catedratico, curso1.creditos, curso1.laboratorio, curso1.pre_requisito, curso1.post_requisito, estudent.carnet, estudent.nombre);
+            }
         }
+        
+        
+        
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

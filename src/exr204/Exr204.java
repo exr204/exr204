@@ -26,6 +26,8 @@ public class Exr204 {
        semestre.Agregar("Primer Semestre 2022");
        semestre.Agregar("Segundo Semestre 2022");
        
+       estudiante.Agregar("1","naa...", "Fernando Ruiz", "feruiz.12000@gmail.com", "dire", "1");
+       
        ventana v = new ventana();
        
     }

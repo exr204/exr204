@@ -36,8 +36,39 @@ public class ListaSemestre {
     }
     
     
+    public boolean BuscarSemestre(String nombreSemestre)
+    {
+        NodoSemestre temporal = inicio;
+        while(temporal != null){
+             if(temporal.nombre.equals(nombreSemestre))
+             {
+                 return true;
+             }
+             temporal = temporal.siguiente;
+        }
+        return false;
+    }
+    
      public boolean AgregarCursoenSemestre(String nombreSemestre, String Id,String curso, String catedratico,String creditos, String laboratorio, String pre_requisito, String post_requisito)
     {
+        //Agregar un semestre nuevo a la lista con su primer curso
+        if(BuscarSemestre(nombreSemestre) == false)
+        {
+            NodoSemestre nuevo = new NodoSemestre();
+            nuevo.nombre = nombreSemestre;
+            if(inicio == null){
+                inicio = ultimo = nuevo;  
+                inicio.siguiente = null;
+                inicio.anterior = null; 
+            }else{
+                ultimo.siguiente = nuevo;
+                nuevo.anterior = ultimo;
+                nuevo.siguiente = null;
+                ultimo = nuevo;
+            }
+        }
+        
+        //Este metodo nos ayuda si el semestre ya existe
         NodoSemestre temporal = inicio;
         while(temporal != null)
         {
@@ -48,10 +79,44 @@ public class ListaSemestre {
             }
             temporal = temporal.siguiente;
         }
-        System.out.println("ERROR: el semestre no existe.");
         return false;
     }
     
+    
+     
+      public boolean AgregarEstudianteenCursoenSemestre(String nombreSemestre, String Id,String curso, String catedratico,String creditos, String laboratorio, String pre_requisito, String post_requisito, String carnetEstudiante, String nombreEstudiante)
+    {
+        //Agregar un semestre nuevo a la lista con su primer curso
+        if(BuscarSemestre(nombreSemestre) == false)
+        {
+            NodoSemestre nuevo = new NodoSemestre();
+            nuevo.nombre = nombreSemestre;
+            if(inicio == null){
+                inicio = ultimo = nuevo;  
+                inicio.siguiente = null;
+                inicio.anterior = null; 
+            }else{
+                ultimo.siguiente = nuevo;
+                nuevo.anterior = ultimo;
+                nuevo.siguiente = null;
+                ultimo = nuevo;
+            }
+        }
+        
+        //Este metodo nos ayuda si el semestre ya existe
+        NodoSemestre temporal = inicio;
+        while(temporal != null)
+        {
+            if(nombreSemestre.equals(temporal.nombre))
+            {
+               temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio, pre_requisito, post_requisito);
+               temporal.cursos.AgregarEstudiante(Id,carnetEstudiante, nombreEstudiante, 0);
+               return true; 
+            }
+            temporal = temporal.siguiente;
+        }
+        return false;
+    }
     
     
     

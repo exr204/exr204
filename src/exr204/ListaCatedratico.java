@@ -43,7 +43,7 @@ public class ListaCatedratico {
         NodoCatedratico temporal;
         temporal = inicio;
         while(temporal != null){
-            if(temporal.nombre.equals(usuario) && temporal.contrasenia.equals(contrasenia))
+            if(temporal.nombre.trim().equals(usuario.trim()) && temporal.contrasenia.trim().equals(contrasenia.trim()))
             {
                 return true;
             }
@@ -51,5 +51,18 @@ public class ListaCatedratico {
         }
         return false;
     }
-            
+
+    public NodoCatedratico DevolverCatedratico(String nombreCatedratico)
+    {
+        NodoCatedratico temporal = inicio;
+        while(temporal != null)
+        {
+            if(temporal.nombre.equals(nombreCatedratico))
+            {
+                return temporal;
+            }
+            temporal = temporal.siguiente;
+        }
+        return null;
+    }
 }

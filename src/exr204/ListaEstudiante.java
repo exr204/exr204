@@ -24,7 +24,6 @@ public class ListaEstudiante {
         nuevo.direccion = direccion;
         nuevo.creditos = creditos;
         nuevo.contrasenia = carnet + Integer.toString(random);
-        System.out.println("|"+nuevo.contrasenia+"|");
         
         if(inicio == null){
             inicio = ultimo = nuevo;

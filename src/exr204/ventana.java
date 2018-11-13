@@ -132,9 +132,10 @@ public class ventana extends JFrame{
                     }
                     else
                     {
-                        if(Exr204.catedratico.LoginCatedratico(cj1.getText(), cj2.getText()))
+                        NodoCatedratico cat = Exr204.catedratico.LoginCatedratico(cj1.getText(), cj2.getText());
+                        if(cat != null)
                         {
-                            IngresoNotas notas = new IngresoNotas();
+                            IngresoNotas notas = new IngresoNotas(cat);
                             notas.show();
                         }
                         else
@@ -325,15 +326,14 @@ public class ventana extends JFrame{
             archivo = new BufferedReader(new FileReader(patch));
             while((linea = archivo.readLine()) != null)
             {
-                String[] datos = linea.split(separador);
-                try { 
-                Exr204.curso.Agregar(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6]);
-               
-                } catch (Exception e) {}
                 
+                try { 
+                String[] datos = linea.split(separador);
+                Exr204.curso.AgregarCurso(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],datos[7]);
+                } catch (Exception e) {}
             }
             archivo.close();
-            //Exr204.curso.Imprimir();
+            Exr204.curso.Imprimir();
         } catch (Exception e) {
         }
     }     

@@ -6,6 +6,7 @@
 package exr204;
 
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,11 +14,53 @@ import javax.swing.JFrame;
  */
 public class IngresoNotas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form IngresoNotas
-     */
-    public IngresoNotas() {
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    DefaultTableModel tabla = new DefaultTableModel();
+    NodoCatedratico cat;
+    public IngresoNotas(NodoCatedratico cat) {
+        this.cat = cat;
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setTitle(cat.nombre);
+        initComponents();
+        
+        String [] cabezera = new String[]{"Carne","Nombre","Nota"};
+        tabla.setColumnIdentifiers(cabezera);
+        jTable1.setModel(tabla);
+        
+        semestre.removeAllItems();
+        NodoSemestre temporal = cat.semestre.inicio;
+        while(temporal != null){
+                semestre.addItem(temporal.nombre);
+                temporal = temporal.siguiente;
+        }
+        
+        Curso.removeAllItems();
+        NodoCurso temp = Exr204.curso.inicio;
+        do{
+                Curso.addItem(temp.curso);
+                temp = temp.siguiente;
+        }while(temp != Exr204.curso.inicio);  
+        
+    }
+    
+    
+    void agregar(){
+       
+       String nombreSemestre = semestre.getSelectedItem().toString();
+       String nombreCurso = Curso.getSelectedItem().toString();
+       NodoEstudiante inicio = cat.semestre.DevolverEstudiantesAsignados(nombreSemestre, nombreCurso);
+       NodoEstudiante temporal = inicio;
+       do
+       {
+           tabla.addRow(new Object[]{
+               temporal.carnet.toString(), temporal.nombre.toString(), Integer.toString(temporal.nota)
+           });
+           temporal = temporal.siguiente;
+       } while(temporal != inicio );
+    }
+    
+    public IngresoNotas(){
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         initComponents();
     }
@@ -44,6 +87,11 @@ public class IngresoNotas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Mostrar Listado");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         semestre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -95,20 +143,21 @@ public class IngresoNotas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(semestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(8, 8, 8)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(semestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton3)
                                     .addComponent(jButton4))
                                 .addGap(3, 3, 3))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jButton2)))
+                        .addGap(158, 158, 158)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jButton1)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,22 +165,22 @@ public class IngresoNotas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(semestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(23, 23, 23)
+                        .addComponent(semestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,10 +202,18 @@ public class IngresoNotas extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Asignacion asign = new Asignacion();
-        this.setVisible(false);
-        asign.show();
+        
+      
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        tabla = new DefaultTableModel();
+        String [] cabezera = new String[]{"Carne","Nombre","Nota"};
+        tabla.setColumnIdentifiers(cabezera);
+        jTable1.setModel(tabla);
+        
+        agregar();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

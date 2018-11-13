@@ -49,7 +49,7 @@ public class ListaSemestre {
         return false;
     }
     
-     public boolean AgregarCursoenSemestre(String nombreSemestre, String Id,String curso, String catedratico,String creditos, String laboratorio, String pre_requisito, String post_requisito)
+     public boolean AgregarCursoenSemestre(String nombreSemestre, String Id,String curso, String catedratico,String creditos, String laboratorio, String seccion, String pre_requisito, String post_requisito)
     {
         //Agregar un semestre nuevo a la lista con su primer curso
         if(BuscarSemestre(nombreSemestre) == false)
@@ -74,7 +74,7 @@ public class ListaSemestre {
         {
             if(nombreSemestre.equals(temporal.nombre))
             {
-               temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio, pre_requisito, post_requisito);
+               temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio,seccion, pre_requisito, post_requisito);
                return true; 
             }
             temporal = temporal.siguiente;
@@ -84,7 +84,7 @@ public class ListaSemestre {
     
     
      
-      public boolean AgregarEstudianteenCursoenSemestre(String nombreSemestre, String Id,String curso, String catedratico,String creditos, String laboratorio, String pre_requisito, String post_requisito, String carnetEstudiante, String nombreEstudiante)
+      public boolean AgregarEstudianteenCursoenSemestre(String nombreSemestre, String Id,String curso, String catedratico,String creditos, String laboratorio,String seccion, String pre_requisito, String post_requisito, String carnetEstudiante, String nombreEstudiante)
     {
         //Agregar un semestre nuevo a la lista con su primer curso
         if(BuscarSemestre(nombreSemestre) == false)
@@ -109,7 +109,7 @@ public class ListaSemestre {
         {
             if(nombreSemestre.equals(temporal.nombre))
             {
-               temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio, pre_requisito, post_requisito);
+               temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio,seccion, pre_requisito, post_requisito);
                temporal.cursos.AgregarEstudiante(Id,carnetEstudiante, nombreEstudiante, 0);
                return true; 
             }
@@ -119,7 +119,41 @@ public class ListaSemestre {
     }
     
     
+    public NodoCurso BuscarSemestreAsignado(String nombreSemestre)
+    {
+        NodoSemestre temporal = inicio;
+        while(temporal != null){
+             if(temporal.nombre.equals(nombreSemestre))
+             {
+                 return temporal.cursos.inicio;
+             }
+             temporal = temporal.siguiente;
+        }
+        return null;//no encontro semestre
+    }
     
+    
+    public NodoEstudiante DevolverEstudiantesAsignados(String nombreSemestre, String nombreCurso)
+    {
+        NodoSemestre temporal = inicio;
+        while(temporal != null)
+        {
+            if(temporal.nombre.equals(nombreSemestre))
+            {
+                NodoCurso cursoInicio = temporal.cursos.inicio;
+                NodoCurso temp1 = cursoInicio;
+                do {                    
+                    if(temp1.curso.equals(nombreCurso))
+                    {
+                        return temp1.estudianteAsignado.inicio;
+                    }
+                    temp1 = temp1.siguiente;
+                } while (temp1 != cursoInicio);
+            }
+            temporal = temporal.siguiente;
+        }
+        return null;
+    }
     
     
     

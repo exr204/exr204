@@ -10,7 +10,7 @@ public class ListaCurso {
         this.ultimo = null;
     }
     
-    public void Agregar(String Id, String curso, String catedratico,String creditos,  String laboratorio,String pre_requisito,String post_requisito){
+    public void Agregar(String Id, String curso, String catedratico,String creditos,  String laboratorio,String seccion, String pre_requisito,String post_requisito){
         NodoCurso nuevo = new NodoCurso();
         
         nuevo.Id = Id;
@@ -18,6 +18,7 @@ public class ListaCurso {
         nuevo.catedratico = catedratico;
         nuevo.creditos = creditos;
         nuevo.laboratorio = laboratorio;
+        nuevo.seccion = seccion;
         nuevo.pre_requisito = pre_requisito;
         nuevo.post_requisito = post_requisito;
         
@@ -25,8 +26,9 @@ public class ListaCurso {
            inicio = ultimo = nuevo;
            ultimo.siguiente = inicio;
         }else{
-            if(contadorCurso <= 3)
+            if(contadorCurso < 3)
             {
+                System.out.println(contadorCurso);
                 ultimo.siguiente = nuevo;
                 nuevo.siguiente = inicio;
                 ultimo = nuevo;
@@ -34,11 +36,38 @@ public class ListaCurso {
             else
             {
                 System.out.println("ERROR: No pueden haber mas de 3 cursos por semestre");
+                return;
             }
             
         }
         contadorCurso++;
+        
     }
+    
+    
+    public void AgregarCurso(String Id, String curso, String catedratico,String creditos,  String laboratorio,String seccion, String pre_requisito,String post_requisito){
+        NodoCurso nuevo = new NodoCurso();
+        
+        nuevo.Id = Id;
+        nuevo.curso = curso;
+        nuevo.catedratico = catedratico;
+        nuevo.creditos = creditos;
+        nuevo.laboratorio = laboratorio;
+        nuevo.seccion = seccion;
+        nuevo.pre_requisito = pre_requisito;
+        nuevo.post_requisito = post_requisito;
+        
+        if(inicio == null){
+           inicio = ultimo = nuevo;
+           ultimo.siguiente = inicio;
+        }else{
+                ultimo.siguiente = nuevo;
+                nuevo.siguiente = inicio;
+                ultimo = nuevo;
+        }
+    }
+    
+    
     
     public void Eliminar(String Id){
         NodoCurso temporal;
@@ -121,4 +150,20 @@ public class ListaCurso {
         }while(temporal != inicio);
         return null;
     }
+    
+    /* 
+    public NodoCurso EncontrarCursoAsignado()
+    {
+        NodoCurso temporal;
+        temporal = inicio;
+        do{
+            if(temporal.curso != null)
+            {
+                return temporal;
+            }
+            temporal = temporal.siguiente;
+        }while(temporal != inicio);
+        return null;
+    }
+*/
 }

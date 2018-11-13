@@ -38,18 +38,18 @@ public class ListaCatedratico {
         }
     }
     
-    public boolean LoginCatedratico(String usuario, String contrasenia)
+   public NodoCatedratico LoginCatedratico(String usuario, String contrasenia)
     {
-        NodoCatedratico temporal;
-        temporal = inicio;
-        while(temporal != null){
-            if(temporal.nombre.trim().equals(usuario.trim()) && temporal.contrasenia.trim().equals(contrasenia.trim()))
+        NodoCatedratico temporal = inicio;
+        while(temporal != null)
+        {
+            if(temporal.id.trim().equals(usuario.trim()) && temporal.contrasenia.trim().equals(contrasenia.trim()) )
             {
-                return true;
+                return temporal;
             }
             temporal = temporal.siguiente;
         }
-        return false;
+        return null;
     }
 
     public NodoCatedratico DevolverCatedratico(String nombreCatedratico)

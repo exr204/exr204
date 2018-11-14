@@ -10,7 +10,7 @@ public class ListaCurso {
         this.ultimo = null;
     }
     
-    public void Agregar(String Id, String curso, String catedratico,String creditos,  String laboratorio,String seccion, String pre_requisito,String post_requisito){
+    public boolean Agregar(String Id, String curso, String catedratico,String creditos,  String laboratorio,String seccion, String pre_requisito,String post_requisito){
         NodoCurso nuevo = new NodoCurso();
         
         nuevo.Id = Id;
@@ -21,11 +21,19 @@ public class ListaCurso {
         nuevo.seccion = seccion;
         nuevo.pre_requisito = pre_requisito;
         nuevo.post_requisito = post_requisito;
-        
         if(inicio == null){
            inicio = ultimo = nuevo;
            ultimo.siguiente = inicio;
         }else{
+            NodoCurso temporal = inicio;
+            do{
+                if(temporal.Id.equals(Id))
+                {
+                    return false;
+                }
+                temporal = temporal.siguiente;
+            }while(temporal != inicio);
+            
             if(contadorCurso < 3)
             {
                 System.out.println(contadorCurso);
@@ -36,12 +44,12 @@ public class ListaCurso {
             else
             {
                 System.out.println("ERROR: No pueden haber mas de 3 cursos por semestre");
-                return;
+                return false;
             }
             
         }
         contadorCurso++;
-        
+        return true;
     }
     
     
@@ -57,10 +65,20 @@ public class ListaCurso {
         nuevo.pre_requisito = pre_requisito;
         nuevo.post_requisito = post_requisito;
         
+        
+        
         if(inicio == null){
            inicio = ultimo = nuevo;
            ultimo.siguiente = inicio;
         }else{
+            NodoCurso temporal = inicio;
+            do{
+                if(temporal.Id.equals(Id))
+                {
+                    return;
+                }
+                temporal = temporal.siguiente;
+            }while(temporal != inicio);
                 ultimo.siguiente = nuevo;
                 nuevo.siguiente = inicio;
                 ultimo = nuevo;

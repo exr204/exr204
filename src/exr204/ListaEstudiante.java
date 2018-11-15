@@ -2,6 +2,9 @@
 package exr204;
 
 //Lista doble Circular
+
+import javax.swing.JOptionPane;
+
 public class ListaEstudiante {
     NodoEstudiante inicio, ultimo;
     
@@ -40,7 +43,7 @@ public class ListaEstudiante {
             }
             else
             {
-                System.out.println("El estudiante ya existe");
+                 JOptionPane.showMessageDialog(null, "Error!! el estudiante ya Existe");
             }
         }
         
@@ -95,5 +98,40 @@ public class ListaEstudiante {
         return null;
     }
     
-    
+    public void Eliminar(String Id){
+        NodoEstudiante temporal;
+        temporal = inicio;
+        if(inicio == null)
+        {
+            //la lista esta vacia
+        }
+        else
+        {
+            NodoEstudiante anterior = inicio;
+            do{
+                
+                if(temporal.carnet.equals(Id)){
+                   
+                   if(temporal == inicio)
+                   {
+                       inicio = temporal.siguiente;
+                       ultimo = inicio;
+                   }
+                   else if(temporal == ultimo)
+                   {
+                       ultimo = anterior;
+                       ultimo.siguiente = inicio;
+                   }
+                   else
+                   {
+                       anterior.siguiente = temporal.siguiente;
+                   }
+                }
+                
+                anterior = temporal;
+                temporal = temporal.siguiente;
+            }while(temporal != inicio);
+        }
+       
+    } 
 }

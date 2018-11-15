@@ -2,6 +2,9 @@
 package exr204;
 
 //Lista Circular simple
+
+import javax.swing.JOptionPane;
+
 public class ListaCurso {
     public NodoCurso inicio, ultimo;
     int contadorCurso = 0;
@@ -43,7 +46,8 @@ public class ListaCurso {
             }
             else
             {
-                System.out.println("ERROR: No pueden haber mas de 3 cursos por semestre");
+                JOptionPane.showMessageDialog(null, "ERROR: No pueden haber mas de 3 cursos por semestre");
+                
                 return false;
             }
             
@@ -137,7 +141,8 @@ public class ListaCurso {
         //codigo
         if(temporal.estudianteAsignado.BuscarEstudiante(carnet))
         {
-            System.out.println("Error!! el estudiante ya esta asignado a este curso");
+            JOptionPane.showMessageDialog(null, "Error!! el estudiante ya esta asignado a este curso");
+            
         }
         else
         {

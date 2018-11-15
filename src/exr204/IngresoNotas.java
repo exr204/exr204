@@ -57,6 +57,7 @@ public class IngresoNotas extends javax.swing.JFrame {
            tabla.addRow(new Object[]{
                temporal.carnet.toString(), temporal.nombre.toString(), Integer.toString(temporal.nota)
            });
+           System.out.println(temporal.carnet.toString()+" -> "+temporal.nombre.toString()+" -> "+Integer.toString(temporal.nota));
            temporal = temporal.siguiente;
        } while(temporal != inicio );
     }
@@ -85,8 +86,6 @@ public class IngresoNotas extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Mostrar Listado");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -75,7 +75,6 @@ public class ListaSemestre {
             if(nombreSemestre.equals(temporal.nombre))
             {
                return temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio,seccion, pre_requisito, post_requisito);
-                
             }
             temporal = temporal.siguiente;
         }
@@ -109,10 +108,8 @@ public class ListaSemestre {
         {
             if(nombreSemestre.equals(temporal.nombre))
             {
-               if(temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio,seccion, pre_requisito, post_requisito))
-               {
-                   temporal.cursos.AgregarEstudiante(Id,carnetEstudiante, nombreEstudiante, 0);
-               }
+               temporal.cursos.Agregar(Id, curso, catedratico, creditos, laboratorio,seccion, pre_requisito, post_requisito);
+               temporal.cursos.AgregarEstudiante(Id,carnetEstudiante, nombreEstudiante, 0);
                return true; 
             }
             temporal = temporal.siguiente;

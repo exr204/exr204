@@ -6,6 +6,7 @@
 package exr204;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -85,8 +86,6 @@ public class Asignacion extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Semestre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Semestre.addActionListener(new java.awt.event.ActionListener() {
@@ -205,15 +204,20 @@ public class Asignacion extends javax.swing.JFrame {
         NodoCurso curso1 = Exr204.curso.EncontrarCurso(nombreCurso);
         if(curso1 != null)
         {
-            estudent.semestre.AgregarCursoenSemestre(nombreSemestre, curso1.Id, curso1.curso, curso1.catedratico, curso1.creditos, curso1.laboratorio,curso1.seccion, curso1.pre_requisito, curso1.post_requisito);
-        
-            
-            //nombre del catedratico
-            //buscar al catedratico
-            NodoCatedratico profe = Exr204.catedratico.DevolverCatedratico(curso1.catedratico);
-            if(profe != null)
+            if(estudent.semestre.AgregarCursoenSemestre(nombreSemestre, curso1.Id, curso1.curso, curso1.catedratico, curso1.creditos, curso1.laboratorio,curso1.seccion, curso1.pre_requisito, curso1.post_requisito))
             {
-                profe.semestre.AgregarEstudianteenCursoenSemestre(nombreSemestre, curso1.Id, curso1.curso, curso1.catedratico, curso1.creditos, curso1.laboratorio,curso1.seccion, curso1.pre_requisito, curso1.post_requisito, estudent.carnet, estudent.nombre);
+                //nombre del catedratico
+                //buscar al catedratico
+                NodoCatedratico profe = Exr204.catedratico.DevolverCatedratico(curso1.catedratico);
+                if(profe != null)
+                {
+                    profe.semestre.AgregarEstudianteenCursoenSemestre(nombreSemestre, curso1.Id, curso1.curso, curso1.catedratico, curso1.creditos, curso1.laboratorio,curso1.seccion, curso1.pre_requisito, curso1.post_requisito, estudent.carnet, estudent.nombre);
+                }
+            }
+            else
+            {
+                //ERROR: el curso ya fue asignado al semestre
+                JOptionPane.showMessageDialog(null, "El curso ya fue asignado al semestre");
             }
         }
         

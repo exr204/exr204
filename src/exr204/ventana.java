@@ -129,6 +129,7 @@ public class ventana extends JFrame{
                     {
                         Asignacion asig = new Asignacion(estudent);
                         asig.setVisible(true);
+                        
                     }
                     else
                     {
@@ -175,7 +176,7 @@ public class ventana extends JFrame{
         
         public Administrador(){
             setTitle("Administrador");
-            setSize(500, 300);
+            setSize(500, 320);
             setVisible(true);
             setLocationRelativeTo(null);//Centrar ventana
             setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//cerrar ventana
@@ -188,6 +189,7 @@ public class ventana extends JFrame{
             Boton4();
             Boton5();
             Boton6();
+            Boton7();
         }
         
         JPanel panel = new JPanel();
@@ -303,6 +305,25 @@ public class ventana extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 
                CargadeDatosCatedraticos();
+               
+            }
+        });    
+        }
+        
+         private void Boton7(){
+            JButton b6 = new JButton("Administrar Catedraticos");
+            b6.setBounds(145, 230, 200, 30);
+            panel.add(b6);
+            
+            
+            /* Asignar una Accion al JButton */
+        b6.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+               AdmiCatedratico catedratico = new AdmiCatedratico();
+               catedratico.show();
                
             }
         });    

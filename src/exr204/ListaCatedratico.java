@@ -13,11 +13,11 @@ public class ListaCatedratico {
     public void Agregar(String id, String nombre){
         NodoCatedratico nuevo = new NodoCatedratico();
         
-        int random= 0; //(int) (Math.random() * (150-50+1)+5) ;
+        int random =(int) (Math.random()*(150-50+1)+5);
         
         nuevo.id = id;
         nuevo.nombre = nombre;
-        nuevo.contrasenia = id + random;
+        nuevo.contrasenia = id +Integer.toString(random);
         
         if(inicio == null){
            inicio = ultimo = nuevo;
@@ -65,4 +65,21 @@ public class ListaCatedratico {
         }
         return null;
     }
+    
+    public void Eliminar(String Id){
+    
+    if(inicio.id == Id){
+        inicio = inicio.siguiente;
+    }else{
+        NodoCatedratico temporal = inicio;
+        while(temporal.siguiente != null){
+            if(temporal.siguiente.id == Id){
+                temporal.siguiente = temporal.siguiente.siguiente;
+            }if(temporal.siguiente != null){
+                temporal = temporal.siguiente;
+                }
+        }
+    }
+            
+}
 }
